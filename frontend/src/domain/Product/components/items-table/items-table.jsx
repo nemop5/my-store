@@ -12,20 +12,19 @@ import { useItemTableLabels } from "../../hooks";
 
 import "./items-table.scss";
 export const ItemsTable = React.forwardRef(
-  ({ displayedColumns, data, isReadOnly, onChildScroll, resetScroll, onRowClick }, ref) => {
+  ({ displayedColumns, data, onChildScroll, resetScroll, onRowClick }, ref) => {
     let navigate = useNavigate();
     const { updateSelection } = useInventoryContext();
     const { columns } = useItemTableLabels(displayedColumns);
     const { itemsPerView } = useFiltersContext();
     const [scrollActive, setScrollActive] = useState(false);
     const [lastVisitedPage, setVisitedPage] = useSessionStorage("items-table-last-visited-page", 0);
-    const [expandSubitems, setExpandSubitems] = useState(null);
 
     const [numOfPages, setNumOfPages] = useState(1);
 
     const goRouteId = useCallback(
       (id) => {
-        navigate(`/item/${id}`);
+        navigate(`/product/${id}`);
       },
       [navigate]
     );
@@ -60,16 +59,6 @@ export const ItemsTable = React.forwardRef(
       updateSelection(selectedFlatRows);
     }, [selectedFlatRows, updateSelection]);
 
-    const expandHandler = useCallback(
-      (id) => {
-        if (expandSubitems === id) {
-          return setExpandSubitems(null);
-        }
-        setExpandSubitems(id);
-      },
-      [expandSubitems]
-    );
-
     const ColumnElement = useCallback(
       ({ cell, row }) => {
         switch (cell.column.id) {
@@ -92,7 +81,6 @@ export const ItemsTable = React.forwardRef(
           case "thumbnail":
             return <div><img src={cell.value} alt={"Nema slike"} style={{ maxWidth: '100%', height: 'auto' }} /></div>;
           case "images":
-            {console.log("CELL value", cell.value)}
             return (
               <div className="images_table_wrap" style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {cell.value.map((image, index) => (
@@ -106,7 +94,7 @@ export const ItemsTable = React.forwardRef(
             return cell.render("Cell");
         }
       },
-      [expandHandler, expandSubitems, isReadOnly]
+      []
     );
 
     const onScrollHandler = (e) => {
@@ -116,10 +104,11 @@ export const ItemsTable = React.forwardRef(
     };
 
     const onClickHandler = (cell, row) => {
-      if (!isReadOnly && onRowClick) {
+      console.log("ROW ORIGINAL", row.original);
+      if (onRowClick) {
         onRowClick(row.original);
-      } else if (!isReadOnly && !["selection", "button"].includes(cell.column.id)) {
-        goRouteId(row.original.itemId);
+      } else if (!["selection", "button"].includes(cell.column.id)) {
+        goRouteId(row.original.id);
       }
     };
 
@@ -129,7 +118,7 @@ export const ItemsTable = React.forwardRef(
 
         return pageIndex;
       });
-    }, [pageIndex, setVisitedPage, resetScroll, isReadOnly]);
+    }, [pageIndex, setVisitedPage, resetScroll]);
 
     useEffect(() => {
       setNumOfPages(data?.length ? pageCount : 1);
@@ -144,7 +133,7 @@ export const ItemsTable = React.forwardRef(
               style={{ "--grid-size": headerGroups[0]?.headers?.length }}
             >
               {headerGroups[0].headers.map((column) =>
-                column.id !== "selection" || !isReadOnly ? (
+                column.id !== "selection" ? (
                   <div
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     key={column.id}
@@ -168,9 +157,7 @@ export const ItemsTable = React.forwardRef(
                   <div
                     key={row.id}
                     {...row.getRowProps()}
-                    className={clsx("items-table__row items-table__grid", {
-                      "items-table__row--active": expandSubitems === row.id,
-                    })}
+                    className={clsx("items-table__row items-table__grid")}
                     style={{ "--grid-size": row.cells.length }}
                   >
                     {row.cells.map((cell, index) => (

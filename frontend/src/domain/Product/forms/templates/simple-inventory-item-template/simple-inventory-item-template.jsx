@@ -1,14 +1,11 @@
 import { useCallback, useState, useEffect } from "react";
 import clsx from "clsx";
-import { DateInput, TextInput, Dropdown } from "shared";
+import { TextInput, Dropdown } from "shared";
 import { INPUT_FIELD_MAX_LENGTH } from "environment";
 import "./simple-inventory-item-template.scss";
 import { PRICE_FIELD_MAX_LENGTH } from "environment";
 import { useInventoryContext, ItemSmallInventoryLabel } from "domain/Product";
 import { usePaginatedData } from "shared/hooks/usePaginatedData";
-import { Tabs } from "shared";
-import { common } from "shared/constants/constants";
-import moment from "moment";
 
 export const SimpleInventoryItemTemplate = ({
   values,
@@ -44,36 +41,10 @@ export const SimpleInventoryItemTemplate = ({
     [setValues, setIsFieldChanged]
   );
 
-  const onDateChange = useCallback(
-    (purchaseDate) => {
-      setValues((oldState) => ({ ...oldState, invoice: { ...oldState.invoice, purchaseDate } }));
-      setIsFieldChanged(true);
-    },
-    [setValues, setIsFieldChanged]
-  );
-
   const onCheckboxChange = useCallback(
     (event) => {
       const { checked } = event.target;
       setValues((oldData) => ({ ...oldData, isActive: checked }));
-      setIsFieldChanged(true);
-    },
-    [setValues, setIsFieldChanged]
-  );
-
-  const onInvoiceChange = useCallback(
-    (event) => {
-      const { value, name } = event.target;
-      setValues((oldData) => ({ ...oldData, invoice: { ...oldData.invoice, [name]: value } }));
-      setIsFieldChanged(true);
-    },
-    [setValues, setIsFieldChanged]
-  );
-
-  const onSupplierChange = useCallback(
-    (event) => {
-      const { value, name } = event.target;
-      setValues((oldData) => ({ ...oldData, supplier: { [name]: value } }));
       setIsFieldChanged(true);
     },
     [setValues, setIsFieldChanged]

@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { INDEX, CART_DETAILS } from "router/router.config";
-import { HomeIcon, SettingsIcon } from "assets";
+import { HomeIcon } from "assets";
+import { FaShoppingCart } from "react-icons/fa";
 import clsx from "clsx";
 
 import "./user-navigation.scss";
@@ -14,7 +15,7 @@ const protectedItems = [
   },
   {
     label: "Detalji korpe",
-    icon: SettingsIcon,
+    icon: FaShoppingCart,
     link: CART_DETAILS,
   },
 ];

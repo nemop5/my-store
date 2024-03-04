@@ -3,12 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useInventoryContext, ItemForm, ItemsTable } from "domain/Product";
 import { FiltersGroup } from "domain/Filters";
 import { ScrollPosition, useModalContext, Button, Spinner } from "shared";
-import { GoPlus } from "react-icons/go";
+import { initialDisplayedColumns, DISPLAYED_COLUMNS } from "shared/constants/constants";
+import { FaShoppingCart } from "react-icons/fa";
 import { ModalConfirmation } from "shared/components/Modal/components/modal-confirmation/modal-confirmation";
 import { NavButton } from "shared/components/nav-button/nav-button";
 import "./home.page.scss";
 import { useLocalStorage } from "domain/App/hooks";
-import { initialDisplayedColumns, DISPLAYED_COLUMNS } from "shared/constants/constants";
 
 export const HomePage = () => {
   const { items, addItem, isLoading } = useInventoryContext();
@@ -60,7 +60,7 @@ export const HomePage = () => {
           <div className="home-header_right_primary_cta">
             <Button
               buttonText={"Korpa"}
-              buttonIcon={<GoPlus className="btn__plus-icon" />}
+              buttonIcon={<FaShoppingCart />}
               buttonColor={"blue"}
               event={(e) => {
                 setIsCreateBtnLoading(false);

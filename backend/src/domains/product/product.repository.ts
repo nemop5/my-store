@@ -17,7 +17,7 @@ async function getAll({searchTerm}: ProdcutFilterQuery): Promise<Product[]> {
       if (searchTerm) {
         queryBuilder.where(function () {
           this.whereRaw(`unaccent(replace(title, ' ', '')) ilike unaccent(replace('%${searchTerm}%', ' ', ''))`)
-            .orWhereILike(`unaccent(replace(category, ' ', '')) ilike unaccent(replace('%${searchTerm}%', ' ', ''))`)
+          .orWhereRaw(`unaccent(replace(category, ' ', '')) ilike unaccent(replace('%${searchTerm}%', ' ', ''))`)
         });
       }
     });
