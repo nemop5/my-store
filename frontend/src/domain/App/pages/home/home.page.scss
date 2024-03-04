@@ -1,0 +1,59 @@
+@import "src/style/config/vars";
+@import "src/style/helpers/mixins";
+
+.home-header {
+  display: grid;
+  grid-template-areas:
+    "hamburger search"
+    "navigation navigation";
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: 60px 1fr;
+  width: 100%;
+
+  @include media-breakpoint-up($sm) {
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.preference__icon,
+.preference__link .icon {
+  width: 25px;
+  fill: $gray-500;
+
+  @include media-breakpoint-up($md) {
+    margin-right: 0px;
+  }
+}
+
+.nav-button {
+  grid-area: hamburger;
+}
+
+.home-header_left {
+  grid-area: search;
+  width: 100%;
+}
+
+.home-header_right {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  grid-area: navigation;
+}
+
+.home-header_right_primary_cta {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 100%;
+
+  .btn {
+    margin: 0 10px;
+  }
+
+  @include media-breakpoint-up($sm) {
+    justify-content: flex-end;
+  }
+}

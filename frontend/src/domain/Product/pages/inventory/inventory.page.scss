@@ -1,0 +1,78 @@
+@use "sass:math";
+@import "src/style/config/vars";
+@import "src/style/helpers/mixins";
+
+.item-page {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 15px;
+  width: 100%;
+
+  @include media-breakpoint-up($lg) {
+    flex-direction: row;
+  }
+}
+
+.item-page__item {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  max-width: 100%;
+  overflow: auto;
+
+  &.ml-5 {
+    margin-bottom: 20px;
+    order: -1;
+
+    .button-holder {
+      margin-top: 0;
+    }
+  }
+
+  @include media-breakpoint-up($lg) {
+    flex: 0 0 math.percentage(math.div(1, 3));
+    max-width: math.percentage(math.div(1, 3));
+
+    &.ml-5 {
+      flex: 1 1 auto;
+      padding-left: 20px;
+      max-width: 100%;
+      order: initial;
+    }
+  }
+}
+
+.button-holder {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-bottom: 5%;
+  margin-top: 5%;
+  gap: 10px;
+}
+
+div[disabled] {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.census-info {
+  display: flex;
+  flex: 1;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.completed {
+  color: #005344;
+}
+
+.pending {
+  color: #95110a;
+}
+
+.edit-census-info {
+  margin-left: 10px;
+  padding-top: 5px;
+  cursor: pointer;
+}

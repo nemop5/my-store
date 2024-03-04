@@ -1,0 +1,151 @@
+@import "../../../style/config/vars";
+@import "../../../style/helpers/mixins";
+
+$input-wrapper-positive-color: $primary;
+$input-wrapper-negative-color: $gray-300;
+$focus-color: $black;
+
+.input-switch__container {
+  display: inline-flex;
+}
+
+.input-switch__container--history {
+  margin-bottom: 10px;
+}
+
+.input-switch {
+  display: inline-block;
+  flex-shrink: 0;
+  position: relative;
+  text-align: left;
+  user-select: none;
+  width: 70px;
+
+  @include media-breakpoint-down($md) {
+    transform: scale(0.9);
+  }
+
+  @include media-breakpoint-down($sm) {
+    transform: scale(0.825);
+  }
+}
+
+.input-switch__label {
+  border-radius: 20px;
+  border: 0;
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+  flex: none;
+
+  &:focus {
+    outline: none;
+
+    > span {
+      box-shadow: 0 0 2px 5px $focus-color;
+    }
+  }
+}
+
+.input-switch__button {
+  background: $white;
+  border-radius: 50%;
+  border: 0;
+  bottom: 0;
+  display: block;
+  flex: none;
+  height: 24px;
+  left: 0;
+  margin: 5px;
+  position: absolute;
+  right: 50%;
+  top: 0;
+  transition: all 0.3s ease-in 0s;
+  width: 24px;
+}
+
+.input-switch__checkbox {
+  display: none;
+
+  &:checked + .input-switch__label {
+    .input-switch__wrapper {
+      margin-left: 0;
+    }
+
+    .input-switch__button {
+      right: 0;
+      left: 50%;
+    }
+  }
+}
+
+.input-switch__wrapper {
+  display: block;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+  width: 200%;
+
+  &::before,
+  &::after {
+    box-sizing: border-box;
+    color: $white;
+    display: block;
+    float: left;
+    height: 34px;
+    line-height: 34px;
+    width: 50%;
+  }
+
+  &::before {
+    background-color: $input-wrapper-positive-color;
+    content: attr(data-true);
+    padding-left: 10px;
+  }
+
+  &::after {
+    content: attr(data-false);
+    text-align: right;
+    padding-right: 10px;
+    background-color: $input-wrapper-negative-color;
+  }
+}
+
+.input-switch__description {
+  display: inline-flex;
+  flex: 1 1 auto;
+  padding-left: 20px;
+  width: 100%;
+}
+
+.input-switch--small {
+  width: 40px;
+
+  .input-switch__wrapper {
+    &::after,
+    &::before {
+      content: "";
+      height: 20px;
+      line-height: 20px;
+    }
+  }
+
+  .input-switch__button {
+    height: 16px;
+    margin: 2px;
+    right: 20px;
+    width: 16px;
+  }
+}
+
+.input-switch--hide-labels .input-switch__wrapper {
+  &::after,
+  &::before {
+    content: "";
+  }
+}
+
+.input-switch__container--description {
+  align-items: center;
+  display: flex;
+  width: 100%;
+}

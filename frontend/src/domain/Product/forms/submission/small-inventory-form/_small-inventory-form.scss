@@ -1,0 +1,46 @@
+@import "src/domain/Settings/components/settings-content/settings-content";
+@import "src/style/config/vars";
+
+.small-inventory-value {
+  &__heading {
+    font-weight: $font-bold;
+    font-size: 20px;
+    color: $gray-500;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  &__label {
+    font-weight: $font-bold;
+    font-size: 14px;
+    color: $gray-500;
+    opacity: 0.9;
+  }
+
+  &__input-field {
+    display: block;
+    width: 100%;
+    padding: 11px 13px;
+    border-radius: 5px;
+    border: 1px solid #cfcfcf;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-weight: $font-medium;
+    color: $gray-500;
+  }
+
+  &__date-field {
+    font-size: 14px !important;
+  }
+
+  .btn {
+    margin: 25px 0 10px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .text-input__error-mesage {
+    font-size: 14px;
+  }
+}

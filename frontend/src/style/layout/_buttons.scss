@@ -1,0 +1,134 @@
+@import "../config/vars";
+@import "../helpers/mixins";
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: max-content;
+  padding: 10px;
+  background-color: $white;
+  color: $gray-500;
+  min-height: 30px;
+  font-size: 12px;
+  line-height: 16px;
+  border: 1px solid $gray-200;
+  border-radius: 5px;
+  box-shadow: $primary-shadow;
+  transition: $transition;
+  transition-property: color, border-color, background-color;
+  min-width: 30px;
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  @include media-breakpoint-up($md) {
+    padding: 10px 28px;
+  }
+
+  @include media-breakpoint-up($lg) {
+    font-size: 14px;
+    line-height: 17px;
+  }
+
+  @include hover {
+    color: $gray-500;
+    border-color: $gray-500;
+  }
+}
+
+.btn--blue,
+.btn--gray,
+.btn--red,
+.btn--green {
+  border: none;
+  color: $white;
+}
+
+.btn--gray,
+.btn--red {
+  box-shadow: $gray-shadow;
+}
+
+.btn--blue,
+.btn--green {
+  @include hover {
+    background-color: rgba($white, 0.9);
+  }
+}
+
+.btn--modal {
+  height: auto;
+  padding: 7px 20px;
+  border-radius: 5px;
+}
+
+.btn--blue {
+  background-color: $primary;
+  @include hover {
+    color: $primary;
+  }
+}
+
+.btn--gray {
+  background: rgba($gray-400, 0.6);
+}
+
+.btn--red {
+  background: $red;
+}
+
+.btn--green {
+  background-color: $green;
+  @include hover {
+    color: $green;
+  }
+}
+
+.btn__icon-prefix,
+.btn__icon-suffix {
+  display: inline-flex;
+  font-size: 16px;
+}
+
+.btn__text {
+  display: inline-flex;
+  padding: 2px 0;
+
+  + .btn__icon-suffix {
+    margin-left: 8px;
+  }
+
+  @include media-breakpoint-up($lg) {
+    + .btn__icon-suffix {
+      margin-left: 15px;
+    }
+  }
+}
+
+.btn__icon-prefix + .btn__text {
+  margin-left: 8px;
+
+  @include media-breakpoint-up($lg) {
+    margin-left: 15px;
+  }
+}
+
+.btn--mobile-text-hidden {
+  .btn__text {
+    display: none;
+  }
+
+  .btn__icon-prefix,
+  .btn__icon-suffix {
+    margin: 0;
+  }
+
+  @include media-breakpoint-up($sm) {
+    .btn__text {
+      display: inline-flex;
+    }
+  }
+}

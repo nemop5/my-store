@@ -1,0 +1,34 @@
+.confirm-ownership-by-date__form {
+  overflow: hidden;
+  padding: 30px 20px;
+  z-index: -1;
+}
+
+.confirm-ownership-by-date__form input {
+  text-align: center;
+  color: #ffffff;
+  background-color: #4438ca;
+}
+
+.confirm-ownership-by-date__text {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.confirm-date-picker_datepicker {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  min-height: 8vh;
+  transition: min-height 0.3s ease;
+  z-index: 1;
+}
+
+.confirm-ownership-by-date__btn-wrap {
+  width: 70%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}

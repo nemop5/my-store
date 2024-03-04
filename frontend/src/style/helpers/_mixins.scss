@@ -1,0 +1,45 @@
+@mixin visually-hidden() {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+@mixin hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @content;
+    }
+  }
+  @media (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@mixin media-breakpoint-down($name) {
+  $max: $name;
+  @if $max {
+    @media only screen and (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+@mixin media-breakpoint-up($name) {
+  $max: $name;
+  @if $max {
+    @media only screen and (min-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}

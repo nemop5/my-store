@@ -1,0 +1,37 @@
+@import "src/style/config/vars";
+@import "src/style/helpers/mixins";
+
+.filters__form {
+  margin-right: 15px;
+  max-width: 100%;
+  min-width: 160px;
+  width: 100%;
+
+  @include media-breakpoint-up($md) {
+    max-width: 500px;
+  }
+}
+
+.filters__input {
+  display: inline-block;
+  width: 100%;
+  padding: 11px 20px;
+  min-height: 40px;
+  color: $gray-500;
+  border: none;
+  border-radius: 5px;
+  box-shadow: $primary-shadow;
+  font-weight: $font-medium;
+}
+
+.filters__input::-webkit-search-cancel-button {
+  background: url("../../../assets/close.svg");
+  width: 11px;
+  height: 11px;
+  opacity: 0.3;
+  cursor: pointer;
+}
+
+.filters__input::placeholder {
+  color: $gray-300;
+}

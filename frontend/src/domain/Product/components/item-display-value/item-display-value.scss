@@ -1,0 +1,40 @@
+@import "src/style/config/vars";
+@import "src/style/helpers/mixins";
+
+.item-display-value__wrap {
+  position: relative;
+}
+
+.item-display-value__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba($gray-500, 0.9);
+}
+
+.item-display-value {
+  background-color: white;
+  border-bottom: 1px solid rgba($gray-400, 0.2);
+  border: none;
+  color: $gray-500;
+  font-weight: $font-medium;
+  height: 100%;
+  margin-bottom: 15px;
+  padding: 15px;
+  width: 100%;
+
+  &::placeholder {
+    color: rgba($gray-500, 0.35);
+  }
+
+  @include media-breakpoint-up($lg) {
+    width: 95%;
+  }
+}
+
+hr {
+  width: 100%;
+
+  @include media-breakpoint-up($lg) {
+    width: calc(100% - 20px);
+  }
+}

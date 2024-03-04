@@ -1,0 +1,53 @@
+// COLORS
+
+$background: #fafbff;
+$white: #ffffff;
+$black: #000000;
+$gray-100: #e5e7eb;
+$gray-200: #dee6e8;
+$gray-300: #cfcfcf;
+$gray-400: #606772;
+$gray-500: #434e52;
+$blue: #4269d7;
+$primary: #4438ca;
+$orange: #de8f45;
+$cream: #fef3c6;
+$red-royal: #cc3333;
+$red: #de3922;
+$green: #25ae88;
+
+// FONT WEIGHT
+
+$font-regular: 400;
+$font-medium: 500;
+$font-bold: 700;
+$font-black: 900;
+
+//FONT FAMILY
+
+$open-sans: "Open Sans", sans-serif;
+
+// TRANSITIONS
+
+$transition: 0.2s ease;
+
+//BOX-SHADOW
+
+$primary-shadow: 0px 6px 10px -2px rgba($black, 0.08);
+$gray-shadow: 0px 6px 10px -3px rgba($black, 0.15);
+
+//RESPONSIVE
+$xl: 1400px;
+$lg: 1200px;
+$md: 992px;
+$sm: 768px;
+
+//SIZES
+$sidebar-mobile: 58px;
+$sidebar-desktop: 232px;
+
+//Z-INDEX
+
+$z-index-backdrop: 100;
+$z-index-modal: 200;
+$z-index-topmost: 1000;

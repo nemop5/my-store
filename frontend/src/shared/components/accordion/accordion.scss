@@ -1,0 +1,17 @@
+@import "../../../style/config/vars";
+
+.accordion__header {
+  border: 1px solid $gray-300;
+  border-radius: 5px;
+  padding: 9px;
+
+  &.collapsed {
+    display: none;
+  }
+}
+
+.accordion__body {
+  &.collapsed {
+    display: none;
+  }
+}

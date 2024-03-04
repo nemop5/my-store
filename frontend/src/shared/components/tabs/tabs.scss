@@ -1,0 +1,48 @@
+@import "src/style/config/vars";
+@import "src/style/helpers/mixins";
+
+.tab {
+  width: 100%;
+}
+
+.tab__button {
+  background-color: transparent;
+  border-bottom: 0;
+  border-radius: 5px 5px 0 0;
+  border: 1px solid $gray-300;
+  padding-bottom: 10px;
+  padding: 10px 50px;
+  transition: background-color $transition;
+
+  &:not(.tab__button--active) {
+    @include hover {
+      background-color: rgba($gray-100, 0.7);
+    }
+  }
+}
+
+.tab__button--active {
+  position: relative;
+  color: $black;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background-color: $background;
+  }
+}
+
+.tab__content {
+  border-radius: 0 5px 5px 5px;
+  border: 1px solid $gray-300;
+  overflow: hidden;
+  padding: 15px 5px;
+
+  @include media-breakpoint-up($sm) {
+    overflow: auto;
+    padding: 25px 30px;
+  }
+}

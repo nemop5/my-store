@@ -1,0 +1,22 @@
+@import "src/style/config/vars";
+
+.send-text {
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.send-text__label {
+  display: block;
+  text-align: center;
+  font-weight: $font-bold;
+  margin-bottom: 30px;
+}
+
+.send-text__text {
+  width: 100%;
+  min-height: 200px;
+  margin-bottom: 30px;
+  padding: 5px;
+}

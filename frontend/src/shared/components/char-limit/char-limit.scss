@@ -1,0 +1,9 @@
+@import "src/style/config/vars";
+
+.char-limit {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  color: rgba($gray-500, 0.35);
+  pointer-events: none;
+}

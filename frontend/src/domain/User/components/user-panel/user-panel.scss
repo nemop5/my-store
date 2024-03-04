@@ -1,0 +1,86 @@
+@import "style/config/vars";
+@import "style/helpers/mixins";
+
+.user__panel {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0 15px;
+  transition: padding $transition;
+
+  @include media-breakpoint-up($md) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.user__panel-link {
+  display: block;
+  margin-bottom: 42px;
+  text-align: center;
+  width: 100%;
+
+  @include media-breakpoint-up($md) {
+    margin-bottom: 26px;
+  }
+}
+
+.user__panel-logo {
+  display: none;
+  max-width: 88px;
+
+  @include media-breakpoint-up($md) {
+    display: inline-block;
+    max-width: 112px;
+  }
+}
+.user__panel-logo-small {
+  display: inline-block;
+  width: 38px;
+
+  @include media-breakpoint-up($md) {
+    display: none;
+  }
+}
+.user__panel-profile {
+  align-items: center;
+  border-radius: 5px;
+  color: $gray-500;
+  display: flex;
+  padding: 6px;
+  width: 100%;
+
+  @include media-breakpoint-up($md) {
+    border: 1px solid rgba($gray-500, 0.15);
+  }
+}
+.user__panel-avatar {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+  flex: none;
+  height: 45px;
+  width: 45px;
+}
+
+.user__panel-content {
+  display: none;
+  padding-left: 18px;
+
+  @include media-breakpoint-up($md) {
+    display: inline-block;
+  }
+}
+
+.user__content-name {
+  display: block;
+  font-size: 14px;
+  font-weight: $font-medium;
+}
+.user__content-email {
+  display: block;
+  opacity: 0.8;
+  font-size: 12px;
+  font-weight: $font-medium;
+}

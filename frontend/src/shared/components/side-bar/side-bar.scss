@@ -1,0 +1,44 @@
+@import "src/style/config/vars";
+@import "src/style/helpers/mixins";
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: $white;
+  box-shadow: 3px 0px 20px -2px rgba($black, 0.15);
+  border-radius: 0 10px 10px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $sidebar-mobile;
+  transition:
+    width $transition,
+    transform $transition;
+
+  @include media-breakpoint-up($md) {
+    width: $sidebar-desktop;
+  }
+}
+
+.sidebar__toggle {
+  background-color: rgba($black, 0.3);
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transform: translateX(100%);
+  transition: transform 0.4s;
+  width: 100%;
+  z-index: 100;
+}
+
+.right {
+  align-items: end;
+}
+
+.opened {
+  transform: translateX(0);
+}

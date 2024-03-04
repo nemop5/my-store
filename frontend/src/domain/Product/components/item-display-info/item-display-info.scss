@@ -1,0 +1,43 @@
+@import "src/style/config/vars";
+
+.date-picker__label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba($gray-500, 0.9);
+  margin-bottom: 7px;
+}
+.react-datepicker-wrapper input {
+  width: 100%;
+  border: 1px solid $gray-300;
+  padding: 11px 13px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.item-info-holder {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+}
+
+.item-attributes {
+  &__is-small-inventory {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    min-height: 20px;
+    opacity: 0;
+    transition: opacity 0.2s;
+
+    &.show {
+      opacity: 1;
+    }
+  }
+}
+
+.activation-date {
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba($gray-500, 0.9);
+}

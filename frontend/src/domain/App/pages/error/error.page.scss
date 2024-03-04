@@ -1,0 +1,28 @@
+@import "src/style/helpers/mixins";
+
+.error-module__error {
+  padding-top: 50%;
+  text-align: center;
+  transform: translateY(-50%);
+}
+
+.error-module__title {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.error-module__text {
+  font-size: 30px;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+}
+
+.error-module__link {
+  display: inline-block;
+  border-radius: 15px;
+  text-decoration: none;
+  color: black;
+  @include hover {
+    text-decoration: underline;
+  }
+}

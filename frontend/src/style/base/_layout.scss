@@ -1,0 +1,26 @@
+@import "../config/vars";
+
+body {
+  background-color: $background;
+
+  #root {
+    height: 100%;
+  }
+}
+
+.sr-only {
+  @include visually-hidden;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba($gray-500, 0.2);
+  border-radius: 15px;
+}
+::-webkit-scrollbar-thumb {
+  -webkit-box-shadow: inset 0 0 6px rgba($gray-500, 0.2);
+  border-radius: 15px;
+}

@@ -1,0 +1,45 @@
+@import "src/style/config/vars";
+
+.delete-item {
+  display: flex;
+  flex-direction: column;
+  min-height: 450px;
+}
+.delete-item__title {
+  font-weight: $font-bold;
+  font-size: 18px;
+  text-align: center;
+  color: $gray-500;
+  margin-bottom: 29px;
+}
+.delete-item__description {
+  font-weight: $font-bold;
+  font-size: 12px;
+  text-align: center;
+  color: $red;
+  opacity: 0.8;
+  line-height: 14px;
+  max-width: 343px;
+  margin-bottom: 16px;
+}
+.delete-item__controls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 62px;
+}
+
+.delete-item__section {
+  color: #434e52;
+  font-weight: 500;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.delete-item__data {
+  li {
+    list-style: disc;
+    margin-left: 20px;
+  }
+}

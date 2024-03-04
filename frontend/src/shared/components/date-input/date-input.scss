@@ -1,0 +1,13 @@
+@import "src/style/config/vars";
+
+.date-input {
+  margin-bottom: 32px;
+}
+.date-picker__error {
+  color: $red;
+  display: block;
+  text-align: center;
+  z-index: 11;
+  margin: 10px 0;
+  text-align: left;
+}

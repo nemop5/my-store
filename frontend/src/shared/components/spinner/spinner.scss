@@ -1,0 +1,48 @@
+@import "src/style/config/vars";
+
+.spinner {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.spinner__arc {
+  display: block;
+  margin: 0 auto;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  animation: spinner-anim 1.2s linear infinite;
+
+  &--small {
+    width: 17px;
+    height: 17px;
+  }
+
+  &--medium {
+    width: 25px;
+    height: 25px;
+  }
+
+  &--large {
+    width: 30px;
+    height: 30px;
+  }
+
+  &--dark {
+    border-right-color: rgba($gray-500, 0.7);
+  }
+
+  &--light {
+    border-right-color: $white;
+  }
+}
+
+@keyframes spinner-anim {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

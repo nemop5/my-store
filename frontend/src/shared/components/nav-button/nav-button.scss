@@ -1,0 +1,110 @@
+@import "src/style/config/vars";
+@import "src/style/helpers/mixins";
+
+$nav-button-layer-width: 30px;
+$nav-button-layer-height: 2px;
+$nav-button-layer-spacing: 4px;
+
+.nav-button__box {
+  display: inline-block;
+  height: $nav-button-layer-height * 3 + $nav-button-layer-spacing * 2;
+  position: relative;
+  width: $nav-button-layer-width;
+}
+
+.nav-button__inner {
+  display: block;
+  margin-top: -2px;
+  top: 50%;
+  transition-duration: 0.075s;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+  &,
+  &::before,
+  &::after {
+    background-color: $gray-500;
+    border-radius: 4px;
+    height: $nav-button-layer-height;
+    position: absolute;
+    transition-duration: 0.15s;
+    transition-property: transform;
+    transition-timing-function: ease;
+    width: $nav-button-layer-width;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    display: block;
+  }
+
+  &::before {
+    top: ($nav-button-layer-spacing + $nav-button-layer-height) * -1;
+    transition:
+      top 0.075s 0.12s ease,
+      opacity 0.075s ease;
+  }
+
+  &::after {
+    bottom: ($nav-button-layer-spacing + $nav-button-layer-height) * -1;
+    transition:
+      bottom 0.075s 0.12s ease,
+      transform 0.075s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+}
+
+.nav-button {
+  background-color: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  display: inline-block;
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  padding: 15px 15px 15px 0;
+  text-transform: none;
+  transition: opacity $transition;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  @include media-breakpoint-up($sm) {
+    display: none;
+  }
+}
+
+.nav-button--active {
+  &:hover {
+    opacity: 0.7;
+  }
+
+  .nav-button__inner,
+  .nav-button__inner::before,
+  .nav-button__inner::after {
+    background-color: $gray-500;
+  }
+
+  .nav-button__inner {
+    transform: rotate(45deg);
+    transition-delay: 0.12s;
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+    &::before {
+      opacity: 0;
+      top: 0;
+      transition:
+        top 0.075s ease,
+        opacity 0.075s 0.12s ease;
+    }
+
+    &::after {
+      bottom: 0;
+      transform: rotate(-90deg);
+      transition:
+        bottom 0.075s ease,
+        transform 0.075s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+  }
+}
