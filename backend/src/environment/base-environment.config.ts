@@ -1,19 +1,16 @@
 import { DatabaseConfiguration } from "./database/database.config";
 import { DummyServerConfiguration } from "./dummy-server/dummy-server.config";
-import { RedisConfiguration } from "./redis/redis.config";
 import { EnvironmentException } from "./environment.exceptions";
 
 interface EnvironmentConfig {
   database: Partial<DatabaseConfiguration>;
   dummyServer: Partial<DummyServerConfiguration>;
-  redis: Partial<RedisConfiguration>;
 }
 
 export abstract class Environment implements EnvironmentConfig {
   protected constructor(
     public database: Partial<DatabaseConfiguration>,
     public dummyServer: Partial<DummyServerConfiguration>,
-    public redis: Partial<RedisConfiguration>
   ) {
     const { user, password, host, database_name, port } = database;
     if (!user) {
@@ -40,12 +37,6 @@ export abstract class Environment implements EnvironmentConfig {
 
     if (!url) {
       throw new EnvironmentException("Dummy server url not found");
-    }
-
-    const { expirationTime } = redis;
-
-    if (!expirationTime) {
-      throw new EnvironmentException("Redis expiration time not found");
     }
   }
 }

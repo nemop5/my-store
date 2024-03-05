@@ -8,7 +8,6 @@ import {
   getDatabaseUser,
 } from "./database/database.config";
 import { DummyServerConfiguration, getDummyApiUrl } from "./dummy-server/dummy-server.config";
-import { RedisConfiguration, getRedisExpirationTime, getRedisUrl } from "./redis/redis.config";
 
 export class DevelopmentEnvironment extends Environment {
   constructor() {
@@ -24,11 +23,6 @@ export class DevelopmentEnvironment extends Environment {
       url: getDummyApiUrl()
     };
 
-    const redis: Partial<RedisConfiguration> = {
-      expirationTime: getRedisExpirationTime(),
-      url: getRedisUrl(),
-    };
-
-    super(database, dummyServer, redis);
+    super(database, dummyServer);
   }
 }

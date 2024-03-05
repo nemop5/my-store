@@ -83,9 +83,9 @@ export const ItemsTable = React.forwardRef(
           case "category":
             return <div>{cell.value}</div>;
           case "discount_percentage":
-            return <div>{cell.value}</div>;
+            return <div>{cell.value}%</div>;
           case "price":
-            return <div>{cell.value}</div>;
+            return <div>${cell.value}</div>;
           case "rating":
             return <div>{cell.value}</div>;
           case "stock":
@@ -208,7 +208,7 @@ export const ItemsTable = React.forwardRef(
         <ItemsTablePagination pageCount={numOfPages} pageIndex={pageIndex} gotoPage={gotoPage} />
       </>
     ) : (
-      <div className="items-table__loading">Ne postoji nijedan inventar sa selektovanim filterima.</div>
+      <div className="items-table__loading">Ne postoji proizvod sa odabranim filterima.</div>
     );
   }
 );

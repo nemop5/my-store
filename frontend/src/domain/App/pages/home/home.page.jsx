@@ -1,11 +1,10 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { useProductContext, ItemsTable } from "domain/Product";
 import { ItemDisplayProduct } from "domain/Cart";
 import { FiltersGroup } from "domain/Filters";
-import { ScrollPosition, Button, Spinner, SideBar, useToggler } from "shared";
+import { ScrollPosition, Button, NavButton, Spinner, SideBar, useToggler } from "shared";
+
 import { FaShoppingCart } from "react-icons/fa";
-import { NavButton } from "shared/components/nav-button/nav-button";
 
 import "./home.page.scss";
 
@@ -32,7 +31,7 @@ export const HomePage = () => {
     onOpenHandler();
   };
 
-  // Calculate totals
+  // Calculate totals - TO DO::
   const total = selectedItems.reduce((acc, item) => acc + item.original.price * item.quantity, 0);
   const discountedTotal = selectedItems.reduce(
     (acc, item) => acc + (item.original.price * (100 - item.original.discounted_percentage) / 100) * item.quantity,

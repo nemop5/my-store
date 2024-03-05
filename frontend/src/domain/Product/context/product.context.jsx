@@ -45,6 +45,7 @@ export function ProductProvider({ children }) {
     const params = { ...applyFilters, };
 
     setIsLoading(true);
+    console.log("Params", params)
     ProductService.get(params)
       .then((data) => {
         setItems(data);
