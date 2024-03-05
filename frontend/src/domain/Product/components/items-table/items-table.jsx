@@ -7,7 +7,7 @@ import clsx from "clsx";
 import { useSessionStorage } from "domain/App";
 import { useFiltersContext } from "domain/Filters";
 import { Button } from "shared";
-import { ItemsTablePagination } from "..";
+import { ItemsTableCheckbox, ItemsTablePagination } from "..";
 import { useItemTableLabels } from "../../hooks";
 
 import "./items-table.scss";
@@ -49,6 +49,18 @@ export const ItemsTable = React.forwardRef(
       useSortBy,
       usePagination,
       useRowSelect,
+      (hooks) => {
+        hooks.visibleColumns.push((columns) => [
+          {
+            id: "selection",
+            Header: ({ getToggleAllRowsSelectedProps }) => <ItemsTableCheckbox {...getToggleAllRowsSelectedProps()} />,
+            Cell: ({ row }) => {
+              return <ItemsTableCheckbox {...row.getToggleRowSelectedProps()} />;
+            },
+          },
+          ...columns,
+        ]);
+      }
     );
 
     useEffect(() => {
@@ -104,7 +116,6 @@ export const ItemsTable = React.forwardRef(
     };
 
     const onClickHandler = (cell, row) => {
-      console.log("ROW ORIGINAL", row.original);
       if (onRowClick) {
         onRowClick(row.original);
       } else if (!["selection", "button"].includes(cell.column.id)) {

@@ -1,53 +1,49 @@
-import React, { useMemo, useCallback, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useInventoryContext, ItemForm, ItemsTable } from "domain/Product";
+import { useInventoryContext, ItemsTable } from "domain/Product";
+import { ItemDisplayProduct } from "domain/Cart";
 import { FiltersGroup } from "domain/Filters";
-import { ScrollPosition, useModalContext, Button, Spinner } from "shared";
+import { ScrollPosition, Button, Spinner, SideBar, useToggler } from "shared";
 import { initialDisplayedColumns, DISPLAYED_COLUMNS } from "shared/constants/constants";
 import { FaShoppingCart } from "react-icons/fa";
-import { ModalConfirmation } from "shared/components/Modal/components/modal-confirmation/modal-confirmation";
 import { NavButton } from "shared/components/nav-button/nav-button";
 import "./home.page.scss";
 import { useLocalStorage } from "domain/App/hooks";
 
 export const HomePage = () => {
-  const { items, addItem, isLoading } = useInventoryContext();
-  const { createModal } = useModalContext();
-  const [isCreateBtnLoading, setIsCreateBtnLoading] = useState(false);
-  const [createInventoryErrorMessage, setCreateInventoryErrorMessage] = useState("");
+  const { items, selectedItems, isLoading } = useInventoryContext();
   const navigate = useNavigate();
+
+  const { isOpen, onOpenHandler, onCloseHandler } = useToggler();
 
   const [displayedColumns] = useLocalStorage(DISPLAYED_COLUMNS, initialDisplayedColumns);
 
-  const { element: CreateNewItemModal, open, close } = useMemo(() => createModal(), [createModal]);
-  const {
-    element: CloseNewItemModalConfirmation,
-    open: openConfirmationModal,
-    close: closeConfirmationModal,
-  } = useMemo(() => createModal(), [createModal]);
+  // const onCreateNewItem = useCallback(
+  //   (newItem, count) => {
+  //     setIsCreateBtnLoading(true);
+  //     addItem(newItem, count)
+  //       .then((data) => {
+  //         close();
+  //         data && navigate(`/item/${data[0].itemId}`);
+  //       })
+  //       .catch((error) => setCreateInventoryErrorMessage(error.response.data))
+  //       .finally(() => setIsCreateBtnLoading(false));
+  //   },
+  //   [addItem, close, navigate]
+  // );
 
-  const onCreateNewItem = useCallback(
-    (newItem, count) => {
-      setIsCreateBtnLoading(true);
-      addItem(newItem, count)
-        .then((data) => {
-          close();
-          data && navigate(`/item/${data[0].itemId}`);
-        })
-        .catch((error) => setCreateInventoryErrorMessage(error.response.data))
-        .finally(() => setIsCreateBtnLoading(false));
-    },
-    [addItem, close, navigate]
+  const onOpenCart = () => {
+    onOpenHandler();
+  };
+
+  // Calculate totals
+  const total = selectedItems.reduce((acc, item) => acc + item.original.price * item.quantity, 0);
+  const discountedTotal = selectedItems.reduce(
+    (acc, item) => acc + (item.original.price * (100 - item.original.discounted_percentage) / 100) * item.quantity,
+    0
   );
-
-  const onSubmitConfirmationModal = () => {
-    closeConfirmationModal();
-    close();
-  };
-
-  const onCloseConfirmationModal = () => {
-    closeConfirmationModal();
-  };
+  const totalProducts = selectedItems.length;
+  const totalQuantity = selectedItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <>
@@ -60,13 +56,10 @@ export const HomePage = () => {
           <div className="home-header_right_primary_cta">
             <Button
               buttonText={"Korpa"}
-              buttonIcon={<FaShoppingCart />}
               buttonColor={"blue"}
-              event={(e) => {
-                setIsCreateBtnLoading(false);
-                setCreateInventoryErrorMessage("");
-                open();
-              }}
+              buttonIcon={<FaShoppingCart />}
+              event={onOpenCart}
+              isDisabled={!selectedItems.length}
             />
           </div>
         </div>
@@ -80,21 +73,23 @@ export const HomePage = () => {
           <ItemsTable displayedColumns={displayedColumns} data={items} isReadOnly={false} />
         </ScrollPosition>
       ) : null}
-      <CreateNewItemModal>
-        <ItemForm
-          onSubmit={onCreateNewItem}
-          onCancel={openConfirmationModal}
-          isBtnLoading={isCreateBtnLoading}
-          errorMessage={createInventoryErrorMessage}
-        />
-      </CreateNewItemModal>
-      <CloseNewItemModalConfirmation>
-        <ModalConfirmation
-          onSubmit={onSubmitConfirmationModal}
-          onCancel={onCloseConfirmationModal}
-          text={<p>Da li ste sigurni da želite da zatvorite prozor?</p>}
-        />
-      </CloseNewItemModalConfirmation>
+      <SideBar
+        isOpen={isOpen} 
+        sideBarToggle 
+        floatRight
+        selectedItems={selectedItems}
+        total={total}
+        discountedTotal={discountedTotal}
+        totalProducts={totalProducts}
+        totalQuantity={totalQuantity}
+        style={{ overflowY: 'auto', maxHeight: '80vh' }} 
+      >
+        <div className="item-display-close" onClick={onCloseHandler}>Zatvori korpu</div>
+        {selectedItems?.map((item, index) => {
+          return <div key={index}><ItemDisplayProduct item={item.original} /></div>
+        })}
+        <div className="item-display-close" onClick={onCloseHandler}>Kreiraj porudžbinu</div>
+      </SideBar>
     </>
   );
 };

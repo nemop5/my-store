@@ -19,6 +19,7 @@ async function getAll(): Promise<Cart[]> {
       "c.discounted_total as discounted_total",
       "c.user_id as user_id",
       "c.total_products as total_products",
+      "c.total_quantity as total_quantity",
       database.raw("json_agg(p.*) as products")
     )
     .from(`${Table.Cart} as c`)

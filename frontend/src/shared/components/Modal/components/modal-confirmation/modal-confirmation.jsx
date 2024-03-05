@@ -8,7 +8,7 @@ export const ModalConfirmation = ({
   title,
   text,
   btnColor = "red",
-  btnSubmitText = "Zatvori",
+  btnSubmitText = "Da",
 }) => {
   return (
     <>
@@ -28,7 +28,7 @@ export const ModalConfirmation = ({
           spinnerColor={"light"}
           isLoading={isBtnLoading}
         />
-        <Button buttonText={"Otkaži"} buttonColor={"gray"} event={onCancel} />
+        <Button buttonText={"Ne"} buttonColor={"gray"} event={onCancel} />
       </div>
     </>
   );

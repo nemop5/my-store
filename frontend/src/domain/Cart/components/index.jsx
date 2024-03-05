@@ -1,0 +1,1 @@
+export * from "./item-display-product/item-display-product";

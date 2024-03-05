@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { INDEX, ITEM, CART_DETAILS } from "router";
-import { HomePage, ErrorPage, App } from "domain/App";
+import { HomePage, ErrorPage, App, CartDetailsPage } from "domain/App";
 import { InventoryPage } from "domain/Product";
 
 export const GlobalRouter = () => {
@@ -14,7 +14,7 @@ export const GlobalRouter = () => {
         <Route path={ITEM}>
           <Route path=":id" element={<InventoryPage />} />
         </Route>
-        <Route path={CART_DETAILS}></Route>
+        <Route path={CART_DETAILS} element={<CartDetailsPage />}></Route>
         </Route>
         <Route path="*" element={<ErrorPage />} />
       </Routes>

@@ -17,7 +17,7 @@ export const App = () => {
     <ApplicationContextProvider>
       <div className={clsx("app", { "app--nav-open": isNavMenuClicked })}>
         <div className="app__sidebar">
-          <SideBar>
+          <SideBar className={"user-panel"}>
             <UserPanel />
             <UserNavigation />
           </SideBar>

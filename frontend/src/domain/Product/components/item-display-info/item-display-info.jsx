@@ -20,7 +20,7 @@ export const ItemDisplayInfo = ({ item }) => {
       <ItemDisplayValue label="Stock" value={item.stock} />
       <hr />
       <div className="images_table_wrap" style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {item.images.map((image, index) => (
+        {item.images?.map((image, index) => (
           <div key={index} style={{ flex: '0 0 48%', margin: '1%' }}>
             <img src={image} alt={"Nema slike"} style={{ width: '100%', height: 'auto' }} />
           </div>
