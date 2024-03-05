@@ -2,7 +2,7 @@ import React, { useState, useContext, useCallback } from "react";
 import { useLocalStorage } from "../../App/hooks/useLocalStorage";
 
 const FiltersContext = React.createContext();
-const DEFAULT_ITEMS_PER_VIEW = 100;
+const DEFAULT_ITEMS_PER_VIEW = 30;
 const ITEMS_PER_VIEW = "itemsPerView";
 
 export function useFiltersContext() {

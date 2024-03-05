@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import AmazonLogo from "../../../../assets/amazon.jpg";
+import AmazonLogo from "../../../assets/amazon.jpg";
 
 import "./user-panel.scss";
 export const UserPanel = () => {

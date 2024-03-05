@@ -4,7 +4,7 @@ const url = "/api/carts";
 
 async function get() {
   return api
-    .inventar({
+    .myStore({
       method: "get",
       url,
     })
@@ -23,7 +23,7 @@ async function add(item, count) {
 //   };
 
 //   return api
-//     .inventar({
+//     .myStore({
 //       method: "post",
 //       url: `${url}/?count=${count}`,
 //       data,
@@ -44,7 +44,7 @@ async function edit(updateItem) {
 //   };
 
 //   return api
-//     .inventar({
+//     .myStore({
 //       method: "put",
 //       url,
 //       data,
@@ -53,7 +53,7 @@ async function edit(updateItem) {
 }
 
 async function deleteCart(inventoryId, archivedReason) {
-//   return api.inventar({
+//   return api.myStore({
 //     method: "delete",
 //     url: `${url}/${inventoryId}`,
 //     data: archivedReason,

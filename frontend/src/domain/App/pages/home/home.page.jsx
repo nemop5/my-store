@@ -1,22 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useInventoryContext, ItemsTable } from "domain/Product";
+import { useProductContext, ItemsTable } from "domain/Product";
 import { ItemDisplayProduct } from "domain/Cart";
 import { FiltersGroup } from "domain/Filters";
 import { ScrollPosition, Button, Spinner, SideBar, useToggler } from "shared";
-import { initialDisplayedColumns, DISPLAYED_COLUMNS } from "shared/constants/constants";
 import { FaShoppingCart } from "react-icons/fa";
 import { NavButton } from "shared/components/nav-button/nav-button";
+
 import "./home.page.scss";
-import { useLocalStorage } from "domain/App/hooks";
 
 export const HomePage = () => {
-  const { items, selectedItems, isLoading } = useInventoryContext();
-  const navigate = useNavigate();
-
+  const { items, selectedItems, isLoading } = useProductContext();
+  //const navigate = useNavigate();
   const { isOpen, onOpenHandler, onCloseHandler } = useToggler();
-
-  const [displayedColumns] = useLocalStorage(DISPLAYED_COLUMNS, initialDisplayedColumns);
 
   // const onCreateNewItem = useCallback(
   //   (newItem, count) => {
@@ -70,7 +66,7 @@ export const HomePage = () => {
         </div>
       ) : items ? (
         <ScrollPosition uniqueId="dashboard-page">
-          <ItemsTable displayedColumns={displayedColumns} data={items} isReadOnly={false} />
+          <ItemsTable data={items} isReadOnly={false} />
         </ScrollPosition>
       ) : null}
       <SideBar

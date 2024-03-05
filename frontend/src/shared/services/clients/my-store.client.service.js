@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const inventar = (params) => {
+export const myStore = (params) => {
   return axios(params).catch((error) => {
     const statusCode = error.response.status;
 

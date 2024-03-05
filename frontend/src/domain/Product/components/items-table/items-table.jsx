@@ -1,4 +1,4 @@
-import { useInventoryContext } from "domain/Product";
+import { useProductContext } from "domain/Product";
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePagination, useRowSelect, useSortBy, useTable } from "react-table";
@@ -12,10 +12,10 @@ import { useItemTableLabels } from "../../hooks";
 
 import "./items-table.scss";
 export const ItemsTable = React.forwardRef(
-  ({ displayedColumns, data, onChildScroll, resetScroll, onRowClick }, ref) => {
+  ({ data, onChildScroll, resetScroll, onRowClick }, ref) => {
     let navigate = useNavigate();
-    const { updateSelection } = useInventoryContext();
-    const { columns } = useItemTableLabels(displayedColumns);
+    const { updateSelection } = useProductContext();
+    const { columns } = useItemTableLabels();
     const { itemsPerView } = useFiltersContext();
     const [scrollActive, setScrollActive] = useState(false);
     const [lastVisitedPage, setVisitedPage] = useSessionStorage("items-table-last-visited-page", 0);

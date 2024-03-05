@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { Outlet } from "react-router-dom";
 
-import { UserPanel, UserNavigation } from "domain/User";
+import { UserPanel, UserNavigation } from "shared";
 
 import { SideBar } from "shared";
 

@@ -15,22 +15,13 @@ const itemLabels = {
 
 export function useItemTableLabels(displayedColumns) {
   const columns = useMemo(() => {
-    const visibleColumns = Object.keys(itemLabels).reduce((itemLabel, key) => {
-      itemLabel["button"] = "";
-
-      if (displayedColumns[key]) {
-        itemLabel[key] = itemLabels[key];
-      }
-      return itemLabel;
-    }, {});
-
-    return Object.keys(visibleColumns).map((key) => {
+    return Object.keys(itemLabels).map((key) => {
       return {
-        Header: visibleColumns[key],
+        Header: itemLabels[key],
         accessor: key,
       };
     });
-  }, [displayedColumns]);
+  }, []);
 
   return { columns };
 }

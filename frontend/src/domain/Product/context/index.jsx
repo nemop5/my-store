@@ -1,1 +1,1 @@
-export * from "./inventory.context";
+export * from "./product.context";

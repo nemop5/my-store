@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-
-import { useInventoryContext } from "../../context";
-
 import { Spinner } from "shared";
-import { ItemDisplayInfo } from "../../components";
+import { ItemDisplayInfo, useProductContext } from "domain/Product";
 
-import "./inventory.page.scss";
+import "./product.page.scss";
 
-export const InventoryPage = () => {
+export const ProductPage = () => {
   const [item, setItem] = useState(undefined);
   const [loading, setLoading] = useState(true);
 
   const params = useParams();
-  const { getItem } = useInventoryContext();
+  const { getItem } = useProductContext();
 
   useEffect(() => {
     getItem(params.id)

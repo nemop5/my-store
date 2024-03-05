@@ -1,3 +1,3 @@
-import { inventar } from "./inventar.client.service";
+import { myStore } from "./my-store.client.service";
 
-export const api = { inventar };
+export const api = { myStore };
