@@ -11,24 +11,16 @@ async function get() {
     .then((response) => response.data);
 }
 
-async function add(item, count) {
-//   const { company, category, amortizationType, location, owner, ...other } = item;
-//   const data = {
-//     ...other,
-//     companyId: company.id.toString(),
-//     ownerId: owner.id.toString(),
-//     categoryId: category.id.toString(),
-//     locationId: location?.id?.toString(),
-//     amortizationTypeId: amortizationType?.id?.toString(),
-//   };
+async function addCart(products) {
+  const data = { userId: 1, products };
 
-//   return api
-//     .myStore({
-//       method: "post",
-//       url: `${url}/?count=${count}`,
-//       data,
-//     })
-//     .then((response) => response.data);
+  return api
+    .myStore({
+      method: "post",
+      url,
+      data,
+    })
+    .then((response) => response.data);
 }
 
 async function edit(updateItem) {
@@ -62,7 +54,7 @@ async function deleteCart(inventoryId, archivedReason) {
 
 export const CartService = {
   get,
-  add,
+  addCart,
   edit,
   deleteCart
 };

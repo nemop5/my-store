@@ -30,6 +30,11 @@ export interface ProdcutFilterQuery {
   searchTerm?: string;
 }
 
+export interface ProductWithQuantity extends Product { 
+  quantity: number;
+  total: number;
+}
+
 export class Product {
   constructor(
     public id: string,

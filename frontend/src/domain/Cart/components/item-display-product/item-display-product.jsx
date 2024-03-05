@@ -2,17 +2,30 @@ import React, { useState } from 'react';
 import { FaPlus, FaMinus } from 'react-icons/fa';
 
 import './item-display-product.scss';
+import { useProductContext } from '../../../Product';
 
 export const ItemDisplayProduct = ({ item }) => {
+  const { selectedItems, updateSelection } = useProductContext();
   const [quantity, setQuantity] = useState(1);
 
   const handleIncrement = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
+    const index = selectedItems.findIndex(obj => obj.original.id === item.id);
+    if (index !== -1) {
+      selectedItems[index].original = { ...item, quantity: quantity + 1}
+      updateSelection(selectedItems);
+    }
   };
 
   const handleDecrement = () => {
+    console.log("Handle decrement", selectedItems)
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
+    }
+    const index = selectedItems.findIndex(obj => obj.original.id === item.id);
+    if (index !== -1) {
+      selectedItems[index].original = { ...item, quantity: quantity - 1}
+      updateSelection(selectedItems);
     }
   };
 

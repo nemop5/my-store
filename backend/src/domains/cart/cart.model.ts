@@ -1,8 +1,8 @@
-import { Product } from "../product";
+import { ProductWithQuantity } from "../product";
 
 export interface CartEntity {
   id: string;
-  products: Product[];
+  products: ProductWithQuantity[];
   total: number,
   discounted_total: number,
   user_id: number,
@@ -12,7 +12,7 @@ export interface CartEntity {
 
 export interface CartDto {
   id: string;
-  products: Product[];
+  products: ProductWithQuantity[];
   total: number;
   discountedTotal: number;
   userId: number;
@@ -23,7 +23,7 @@ export interface CartDto {
 export class Cart {
   constructor(
     public id: string,
-    public products: Product[],
+    public products: ProductWithQuantity[],
     public total: number,
     public discountedTotal: number,
     public userId: number,

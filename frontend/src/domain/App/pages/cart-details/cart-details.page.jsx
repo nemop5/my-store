@@ -10,12 +10,12 @@ export const CartDetailsPage = () => {
   const { carts } = useCartContext();
 
   const handleEdit = (cartId) => {
-    // Handle edit logic, you can make an API call for editing cart
+    // TO DO: Handle edit logic, you can make an API call for editing cart
     console.log(`Editing cart with ID ${cartId}`);
   };
 
   const handleDelete = (cartId) => {
-    // Handle delete logic, you can make an API call for deleting cart
+    // TO DO: Handle delete logic, you can make an API call for deleting cart
     console.log(`Deleting cart with ID ${cartId}`);
   };
 
@@ -28,11 +28,12 @@ export const CartDetailsPage = () => {
         <div key={cart.id} className="cart-item">
           <h2>Korpa ID: {cart.id}</h2>
           <ul>
-            {cart.products.map((product) => (
-              <li key={product.id} className="product-item">
-                <img src={product.thumbnail} alt={product.title} />
+            {cart.products.map((product, index) => (
+              <li key={index} className="product-item">
+                <img src={product.product.thumbnail} alt={product.product.title} />
                 <div>
-                  <p>{product.title}</p>
+                  <p>{product.product.title}</p>
+                  <p>Cena: ${product.product.price}</p>
                   <p>Količina: {product.quantity}</p>
                   <p>Ukupno: ${product.total}</p>
                 </div>

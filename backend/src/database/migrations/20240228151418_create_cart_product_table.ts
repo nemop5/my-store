@@ -6,6 +6,8 @@ exports.up = async (knex: Knex) => {
     table.increments("id").primary();
     table.integer("cart_id").references("id").inTable(Table.Cart).notNullable();
     table.integer("product_id").references("id").inTable(Table.Product).notNullable();
+    table.integer("quantity").notNullable();
+    table.decimal("total", 10, 2).notNullable();
   });
 };
 

@@ -1,4 +1,5 @@
 import { database, Table } from "../../database";
+import { ProductWithQuantity } from "../product";
 import { Cart } from "./cart.model";
 import { Knex } from "knex";
 
@@ -6,7 +7,7 @@ interface CartRepository {
   getAll(): Promise<Cart[]>;
   getById(id: string): Promise<Cart | undefined>;
   createNew(cart: Cart, trx: Knex.Transaction): Promise<Cart>;
-  addProductsToCart(cartId: string, productIds: string[], trx: Knex.Transaction): Promise<void>;
+  addProductsToCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<void>;
   update(cart: Cart): Promise<Cart>;
   deleteCart(cart: Cart): Promise<void>;
 }
@@ -20,7 +21,7 @@ async function getAll(): Promise<Cart[]> {
       "c.user_id as user_id",
       "c.total_products as total_products",
       "c.total_quantity as total_quantity",
-      database.raw("json_agg(p.*) as products")
+      database.raw("json_agg(jsonb_strip_nulls(to_jsonb(cp) - 'cart_id' - 'product_id' - 'id' || jsonb_build_object('product', jsonb_strip_nulls(to_jsonb(p) - 'id')))) as products")
     )
     .from(`${Table.Cart} as c`)
     .leftJoin(`${Table.CartProduct} as cp`, "c.id", "cp.cart_id")
@@ -49,9 +50,9 @@ async function createNew(cart: Cart, trx: Knex.Transaction): Promise<Cart> {
   return Cart.fromEntity(row);
 }
 
-async function addProductsToCart(cartId: string, productIds: string[], trx: Knex.Transaction): Promise<void> {
-  await Promise.all(productIds.map(async (productId) => {
-    const query = database.insert({cart_id: cartId, product_id: productId}).into(Table.CartProduct);
+async function addProductsToCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<void> {
+  await Promise.all(products.map(async (product) => {
+    const query = database.insert({cart_id: cartId, product_id: product.id, quantity: product.quantity, total: product.total}).into(Table.CartProduct);
     await query.transacting(trx);
   }));
 }

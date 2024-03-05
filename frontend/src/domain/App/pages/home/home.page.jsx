@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { useProductContext, ItemsTable } from "domain/Product";
-import { ItemDisplayProduct } from "domain/Cart";
+import { ItemDisplayProduct, useCartContext } from "domain/Cart";
 import { FiltersGroup } from "domain/Filters";
 import { ScrollPosition, Button, NavButton, Spinner, SideBar, useToggler } from "shared";
 
@@ -10,35 +11,24 @@ import "./home.page.scss";
 
 export const HomePage = () => {
   const { items, selectedItems, isLoading } = useProductContext();
-  //const navigate = useNavigate();
+  const { addCart } = useCartContext();
+  const navigate = useNavigate();
   const { isOpen, onOpenHandler, onCloseHandler } = useToggler();
 
-  // const onCreateNewItem = useCallback(
-  //   (newItem, count) => {
-  //     setIsCreateBtnLoading(true);
-  //     addItem(newItem, count)
-  //       .then((data) => {
-  //         close();
-  //         data && navigate(`/item/${data[0].itemId}`);
-  //       })
-  //       .catch((error) => setCreateInventoryErrorMessage(error.response.data))
-  //       .finally(() => setIsCreateBtnLoading(false));
-  //   },
-  //   [addItem, close, navigate]
-  // );
+  const onCreateNewCart = useCallback(() => {
+      const products = selectedItems.map((item) => { return {id: item.original.id, quantity: item.original.quantity }});
+      addCart(products)
+        .then((data) => {
+          data && navigate(`/cart-details`);
+        })
+        .catch((error) => console.log(error.response.data))
+    },
+    [selectedItems, addCart, navigate]
+  );
 
   const onOpenCart = () => {
     onOpenHandler();
   };
-
-  // Calculate totals - TO DO::
-  const total = selectedItems.reduce((acc, item) => acc + item.original.price * item.quantity, 0);
-  const discountedTotal = selectedItems.reduce(
-    (acc, item) => acc + (item.original.price * (100 - item.original.discounted_percentage) / 100) * item.quantity,
-    0
-  );
-  const totalProducts = selectedItems.length;
-  const totalQuantity = selectedItems.reduce((acc, item) => acc + item.quantity, 0);
 
   return (
     <>
@@ -73,17 +63,13 @@ export const HomePage = () => {
         sideBarToggle 
         floatRight
         selectedItems={selectedItems}
-        total={total}
-        discountedTotal={discountedTotal}
-        totalProducts={totalProducts}
-        totalQuantity={totalQuantity}
         style={{ overflowY: 'auto', maxHeight: '80vh' }} 
       >
         <div className="item-display-close" onClick={onCloseHandler}>Zatvori korpu</div>
         {selectedItems?.map((item, index) => {
           return <div key={index}><ItemDisplayProduct item={item.original} /></div>
         })}
-        <div className="item-display-close" onClick={onCloseHandler}>Kreiraj porudžbinu</div>
+        <div className="item-display-close" onClick={onCreateNewCart}>Kreiraj porudžbinu</div>
       </SideBar>
     </>
   );

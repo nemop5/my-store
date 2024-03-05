@@ -4,7 +4,6 @@ export function useItemsFilters() {
   const { saveFilter, removeFilter } = useFiltersContext();
 
   const handleFilterBySearch = (term, filterName = "searchTerm") => {
-    console.log("handleFIlterBySearch", term, filterName)
     if (term === "") {
       removeFilter(filterName);
     } else {
