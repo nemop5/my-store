@@ -44,7 +44,7 @@ export function getAppDatabaseConfiguration(): Knex.Config {
 export const localPostgresDefaultConfig: Knex.Config = {
   client: "pg",
   connection: {
-    host: "localhost", //TO DO: postgres when running as one docker file
+    host: "postgres", //TO DO: postgres when running as one docker file
     database: "postgres",
     user: "postgres",
     password: "postgres",

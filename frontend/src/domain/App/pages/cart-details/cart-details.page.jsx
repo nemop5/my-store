@@ -21,7 +21,7 @@ export const CartDetailsPage = () => {
         alert("Uspešno ste obrisali korpu!")
       })
     .catch((error) => console.log(error.response.data))
-  }, []);
+  }, [deleteCart]);
 
   const handleUpdateQuantity = (cart, productId, newQuantity) => {
     // TO DO: Handle updating quantity logic, you can make an API call for updating cart

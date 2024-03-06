@@ -1,0 +1,11 @@
+# Dockerfile for React frontend
+FROM node:14
+
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm ci
+COPY --chown=node:node ./frontend/ ./
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
