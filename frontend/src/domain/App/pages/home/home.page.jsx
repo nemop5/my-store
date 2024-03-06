@@ -19,7 +19,7 @@ export const HomePage = () => {
       const products = selectedItems.map((item) => { return {...item.original, quantity: item.original.quantity || 1 }});
       addCart(products)
         .then((data) => {
-          data && navigate(`/cart-details`);
+          navigate(`/cart-details`);
         })
         .catch((error) => console.log(error.response.data))
     },

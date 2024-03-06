@@ -29,7 +29,6 @@ export function CartProvider({ children }) {
 
   const addCart = async (products) => {
     return await CartService.addCart(products).then((item) => {
-      console.log("Created item", item);
       setCarts([...carts, item])
     })
   };

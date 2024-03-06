@@ -7,7 +7,7 @@ interface CartRepository {
   getAll(): Promise<Cart[]>;
   getById(id: string): Promise<Cart | undefined>;
   createNew(cart: Cart, trx: Knex.Transaction): Promise<Cart>;
-  addProductsToCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<void>;
+  addProductsToCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<ProductWithQuantity[]>;
   update(cart: Cart): Promise<Cart>;
   deleteCart(cart: Cart): Promise<void>;
 }
@@ -31,7 +31,9 @@ async function getAll(): Promise<Cart[]> {
   const carts = rows.map((row) => {
     return {
       ...row,
-      products: row.products || [],
+      products: row.products.map((product:any) => { 
+        return { total: product.total, quantity: product.quantity, ...product.product }
+      }) || [],
     };
   });
 
@@ -45,10 +47,6 @@ async function getById(id: string): Promise<Cart | undefined> {
 
 async function createNew(cart: Cart, trx: Knex.Transaction): Promise<Cart> {
   const { total, discountedTotal, userId, totalProducts, totalQuantity } = cart;
-  console.log({total});
-  console.log({discountedTotal});
-  console.log({totalProducts});
-  console.log({totalQuantity})
   const query = database
     .insert({
       total: total,
@@ -63,13 +61,12 @@ async function createNew(cart: Cart, trx: Knex.Transaction): Promise<Cart> {
   return Cart.fromEntity(row);
 }
 
-async function addProductsToCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<void> {
-  await Promise.all(products.map(async (product) => {
-    const total = Math.round(product.price * product.quantity);
-    console.log("product", product.id);
-    console.log("total", total)
-    const query = database.insert({cart_id: cartId, product_id: product.id, quantity: product.quantity, total: total}).into(Table.CartProduct);
+async function addProductsToCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<ProductWithQuantity[]> {
+  return await Promise.all(products.map(async (product) => {
+    product.total = Math.round(product.price * product.quantity);
+    const query = database.insert({cart_id: cartId, product_id: product.id, quantity: product.quantity, total: product.total}).into(Table.CartProduct);
     await query.transacting(trx);
+    return product;
   }));
 }
 

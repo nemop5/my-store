@@ -24,16 +24,16 @@ export const CartDetailsPage = () => {
   return (
     <div className="cart-page">
       <h1>Prikaz svih sačuvanih korpa</h1>
-      {carts.map((cart) => (
+      {carts.sort((a, b) => b.id - a.id).map((cart) => (
         <div key={cart.id} className="cart-item">
           <h2>Korpa ID: {cart.id}</h2>
           <ul>
             {cart.products.map((product, index) => (
               <li key={index} className="product-item">
-                <img src={product.product.thumbnail} alt={product.product.title} />
+                <img src={product.thumbnail} alt={product.title} />
                 <div>
-                  <p>{product.product.title}</p>
-                  <p>Cena: ${product.product.price}</p>
+                  <p>{product.title}</p>
+                  <p>Cena: ${product.price}</p>
                   <p>Količina: {product.quantity}</p>
                   <p>Ukupno: ${product.total}</p>
                 </div>

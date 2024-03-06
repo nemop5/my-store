@@ -33,7 +33,6 @@ export const ItemDisplayProduct = ({ item }) => {
       <div className="thumbnail">
         <img src={item.thumbnail} alt={item.name} />
       </div>
-      {console.log({item})}
       <div className="item-details">
         <div className="item-title">{item.title}</div>
         <div className="item-brand">{item.brand}</div>
