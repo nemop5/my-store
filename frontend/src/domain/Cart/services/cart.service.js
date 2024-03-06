@@ -44,12 +44,11 @@ async function edit(updateItem) {
 //     .then((response) => response.data);
 }
 
-async function deleteCart(inventoryId, archivedReason) {
-//   return api.myStore({
-//     method: "delete",
-//     url: `${url}/${inventoryId}`,
-//     data: archivedReason,
-//   });
+async function deleteCart(cartId) {
+  return api.myStore({
+    method: "delete",
+    url: `${url}/${cartId}`,
+  });
 }
 
 export const CartService = {

@@ -10,7 +10,8 @@ interface CartService {
   createNew(cart: Cart, trx: Knex.Transaction): Promise<Cart>;
   addProductsToCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<ProductWithQuantity[]>;
   updateCart(cart: Cart): Promise<Cart>;
-  deleteCart(cart: Cart): Promise<void>;
+  removeProductsFromCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<void>;
+  deleteCart(cart: Cart, trx: Knex.Transaction): Promise<void>;
 }
 
 async function getAll(): Promise<Cart[]> {
@@ -44,8 +45,13 @@ async function updateCart(cart: Cart): Promise<Cart> {
   return await cartRepository.update(cart);
 }
 
-async function deleteCart(cart: Cart): Promise<void> {
-  return await cartRepository.deleteCart(cart);
+async function removeProductsFromCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<void> {
+  return await cartRepository.removeProductsFromCart(cartId, products, trx);
+}
+
+async function deleteCart(cart: Cart, trx: Knex.Transaction): Promise<void> {
+  await removeProductsFromCart(cart.id, cart.products, trx);
+  return await cartRepository.deleteCart(cart, trx);
 }
 
 export const cartService: CartService = {
@@ -54,5 +60,6 @@ export const cartService: CartService = {
   createNew,
   addProductsToCart,
   updateCart,
+  removeProductsFromCart,
   deleteCart
 };

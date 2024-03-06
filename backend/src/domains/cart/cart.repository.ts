@@ -9,7 +9,8 @@ interface CartRepository {
   createNew(cart: Cart, trx: Knex.Transaction): Promise<Cart>;
   addProductsToCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<ProductWithQuantity[]>;
   update(cart: Cart): Promise<Cart>;
-  deleteCart(cart: Cart): Promise<void>;
+  removeProductsFromCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<void>;
+  deleteCart(cart: Cart, trx: Knex.Transaction): Promise<void>;
 }
 
 async function getAll(): Promise<Cart[]> {
@@ -41,8 +42,37 @@ async function getAll(): Promise<Cart[]> {
 }
 
 async function getById(id: string): Promise<Cart | undefined> {
-  const row = await database.select("*").from(Table.Cart).where({ id }).first();
-  return Cart.fromEntity(row);
+  const row = await database
+    .select(
+      "c.id as id",
+      "c.total as total",
+      "c.discounted_total as discounted_total",
+      "c.user_id as user_id",
+      "c.total_products as total_products",
+      "c.total_quantity as total_quantity",
+      database.raw(`
+        json_agg(jsonb_strip_nulls(
+          to_jsonb(cp) - 'cart_id' - 'product_id' - 'id' 
+          || jsonb_build_object('product', 
+            jsonb_strip_nulls(to_jsonb(p) - 'id' || jsonb_build_object('id', p.id))
+          )
+        )) as products
+      `)
+    )
+    .from(`${Table.Cart} as c`)
+    .leftJoin(`${Table.CartProduct} as cp`, "c.id", "cp.cart_id")
+    .leftJoin(`${Table.Product} as p`, "cp.product_id", "p.id")
+    .groupBy("c.id")
+    .where({ "c.id": id })
+    .first();
+
+  const cart = {
+    ...row,
+    products: row.products.map((product:any) => {
+      return { id: product.id, total: product.total, quantity: product.quantity, ...product.product }
+    }) || [],
+  }
+  return Cart.fromEntity(cart);
 }
 
 async function createNew(cart: Cart, trx: Knex.Transaction): Promise<Cart> {
@@ -77,8 +107,20 @@ async function update(cart: Cart): Promise<Cart> {
   return Cart.fromEntity(row);
 }
 
-async function deleteCart(cart: Cart): Promise<void> {
-  await database.table(Table.Cart).where("id", cart.id).delete();
+async function removeProductsFromCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<void> {
+  const productIds = products.map((product) => product.id);
+  const query = database
+    .table(Table.CartProduct)
+    .where({ cart_id: cartId })
+    .whereIn("product_id", productIds)
+    .del();
+
+  await query.transacting(trx);
+}
+
+async function deleteCart(cart: Cart, trx: Knex.Transaction): Promise<void> {
+  const query = database.table(Table.Cart).where("id", cart.id).delete();
+  await query.transacting(trx);
 }
 
 export const cartRepository: CartRepository = {
@@ -87,5 +129,6 @@ export const cartRepository: CartRepository = {
   createNew,
   addProductsToCart,
   update,
+  removeProductsFromCart,
   deleteCart
 };

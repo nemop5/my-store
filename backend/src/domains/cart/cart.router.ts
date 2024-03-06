@@ -55,5 +55,19 @@ export function cartRouterFactory() {
     })
   );
 
+  cartRouter.delete(
+    "/:id",
+    requireParamTypeToBeNumber((params) => params.id),
+    asyncErrorHandler(async (request: Request, response: Response, next: NextFunction) => {
+      const id = request.params.id;
+      await transaction(async (trx) => {
+        const cart = await cartService.getById(id);
+        await cartService.deleteCart(cart, trx)
+      });
+
+      return response.sendStatus(HttpStatusCode.NoContent204);
+    })
+  );
+
   return cartRouter;
 }

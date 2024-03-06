@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import { useCartContext } from 'domain/Cart';
 
@@ -7,17 +7,20 @@ import { Spinner } from 'shared';
 import './cart-details.page.scss';
 
 export const CartDetailsPage = () => {
-  const { carts } = useCartContext();
+  const { carts, deleteCart } = useCartContext();
 
   const handleEdit = (cartId) => {
     // TO DO: Handle edit logic, you can make an API call for editing cart
     console.log(`Editing cart with ID ${cartId}`);
   };
 
-  const handleDelete = (cartId) => {
-    // TO DO: Handle delete logic, you can make an API call for deleting cart
-    console.log(`Deleting cart with ID ${cartId}`);
-  };
+  const handleDelete = useCallback((cartId) => {
+    deleteCart(cartId)
+      .then(() => {
+        alert("Uspešno ste obrisali korpu!")
+      })
+    .catch((error) => console.log(error.response.data))
+  }, []);
 
   if (!carts) return <Spinner />
 
