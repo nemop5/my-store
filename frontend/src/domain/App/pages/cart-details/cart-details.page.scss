@@ -10,6 +10,42 @@
       border: 1px solid #ccc;
       margin-bottom: 20px;
       padding: 15px;
+
+      .edit-options {
+        margin-top: 20px;
+    
+        .edit-option {
+          border: 1px solid #ccc;
+          padding: 10px;
+          margin-bottom: 10px;
+    
+          p {
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+    
+          label {
+            margin-right: 5px;
+          }
+    
+          input {
+            width: 50px;
+            margin-right: 10px;
+          }
+    
+          button {
+            padding: 5px 10px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+    
+            &:hover {
+              background-color: #c82333;
+            }
+          }
+        }
+      }
   
       h2 {
         margin-bottom: 10px;

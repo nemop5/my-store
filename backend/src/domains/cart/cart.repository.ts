@@ -22,7 +22,14 @@ async function getAll(): Promise<Cart[]> {
       "c.user_id as user_id",
       "c.total_products as total_products",
       "c.total_quantity as total_quantity",
-      database.raw("json_agg(jsonb_strip_nulls(to_jsonb(cp) - 'cart_id' - 'product_id' - 'id' || jsonb_build_object('product', jsonb_strip_nulls(to_jsonb(p) - 'id')))) as products")
+      database.raw(`
+        json_agg(jsonb_strip_nulls(
+          to_jsonb(cp) - 'cart_id' - 'product_id' - 'id' 
+          || jsonb_build_object('product', 
+            jsonb_strip_nulls(to_jsonb(p) - 'id' || jsonb_build_object('id', p.id))
+          )
+        )) as products
+      `)
     )
     .from(`${Table.Cart} as c`)
     .leftJoin(`${Table.CartProduct} as cp`, "c.id", "cp.cart_id")
