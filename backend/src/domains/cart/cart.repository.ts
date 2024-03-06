@@ -44,15 +44,31 @@ async function getById(id: string): Promise<Cart | undefined> {
 }
 
 async function createNew(cart: Cart, trx: Knex.Transaction): Promise<Cart> {
-  const { id, total, discountedTotal, userId, totalProducts, totalQuantity } = cart;
-  const query = database.insert({id, total, discounted_total: discountedTotal, user_id: userId, total_products: totalProducts, total_quantity: totalQuantity}).into(Table.Cart).returning("*");
+  const { total, discountedTotal, userId, totalProducts, totalQuantity } = cart;
+  console.log({total});
+  console.log({discountedTotal});
+  console.log({totalProducts});
+  console.log({totalQuantity})
+  const query = database
+    .insert({
+      total: total,
+      discounted_total: discountedTotal,
+      user_id: userId,
+      total_products: totalProducts,
+      total_quantity: totalQuantity
+    })
+    .into(Table.Cart)
+    .returning("*");
   const [row] = await query.transacting(trx);
   return Cart.fromEntity(row);
 }
 
 async function addProductsToCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<void> {
   await Promise.all(products.map(async (product) => {
-    const query = database.insert({cart_id: cartId, product_id: product.id, quantity: product.quantity, total: product.total}).into(Table.CartProduct);
+    const total = Math.round(product.price * product.quantity);
+    console.log("product", product.id);
+    console.log("total", total)
+    const query = database.insert({cart_id: cartId, product_id: product.id, quantity: product.quantity, total: total}).into(Table.CartProduct);
     await query.transacting(trx);
   }));
 }

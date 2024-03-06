@@ -16,6 +16,5 @@ export async function createCarts(trx: Knex.Transaction): Promise<void> {
   if (!dummyCarts) return;
   await Promise.all(dummyCarts.carts.map(async (cart: Cart) => {
     await cartService.createNew(cart, trx);
-    await cartService.addProductsToCart(cart.id, cart.products, trx);
   }));
 }

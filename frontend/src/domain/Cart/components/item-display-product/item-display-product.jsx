@@ -18,7 +18,6 @@ export const ItemDisplayProduct = ({ item }) => {
   };
 
   const handleDecrement = () => {
-    console.log("Handle decrement", selectedItems)
     if (quantity > 1) {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
@@ -34,11 +33,12 @@ export const ItemDisplayProduct = ({ item }) => {
       <div className="thumbnail">
         <img src={item.thumbnail} alt={item.name} />
       </div>
+      {console.log({item})}
       <div className="item-details">
         <div className="item-title">{item.title}</div>
         <div className="item-brand">{item.brand}</div>
         <div className="item-price">${item.price}</div>
-        <div className="item-discount">sniženo {item.discount_percentage}%</div>
+        <div className="item-discount">sniženo {item.discountPercentage}%</div>
         <div className="item-description">{item.description}</div>
       </div>
       <div className="quantity">

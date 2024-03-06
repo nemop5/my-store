@@ -6,6 +6,8 @@ import { registerRoutes } from "./routes.register";
 export function appFactory(): Express {
   const app: Express = express();
 
+  app.use(express.json());
+
   app.use("/api", registerRoutes());
   app.use(express.static(__dirname + "/public"));
 

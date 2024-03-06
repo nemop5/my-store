@@ -41,7 +41,7 @@ export class Product {
     public title: string,
     public description: string,
     public price: number,
-    public discount_percentage: number,
+    public discountPercentage: number,
     public rating: number,
     public stock: number,
     public brand: string,
@@ -58,7 +58,7 @@ export class Product {
   static fromDto(productDto: ProductDto): Product {
     const { id, title, description, price, discountPercentage, rating, stock, brand, category, thumbnail, images } = productDto;
     return {
-      id, title, description, price, discount_percentage: discountPercentage, rating, stock, brand, category, thumbnail, images,
+      id, title, description, price, discountPercentage: discountPercentage, rating, stock, brand, category, thumbnail, images,
     };
   }
 }

@@ -82,7 +82,7 @@ export const ItemsTable = React.forwardRef(
               return <div>{cell.value}</div>;
           case "category":
             return <div>{cell.value}</div>;
-          case "discount_percentage":
+          case "discountPercentage":
             return <div>{cell.value}%</div>;
           case "price":
             return <div>${cell.value}</div>;

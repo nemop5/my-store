@@ -35,9 +35,9 @@ async function getById(id: string): Promise<Product | undefined> {
 }
 
 async function createNew(product: Product, trx: Knex.Transaction): Promise<Product> {
-  const { id, title, description, price, discount_percentage, rating, stock, brand, category, thumbnail, images } = product;
+  const { id, title, description, price, discountPercentage, rating, stock, brand, category, thumbnail, images } = product;
   const dbImages = JSON.stringify(images);
-  const query = database.insert({id, title, description, price, discount_percentage, rating, stock, brand, category, thumbnail, images: dbImages}).into(Table.Product).returning("*");
+  const query = database.insert({id, title, description, price, discount_percentage: discountPercentage, rating, stock, brand, category, thumbnail, images: dbImages}).into(Table.Product).returning("*");
   const [row] = await query.transacting(trx);
   return Product.fromEntity(row);
 }

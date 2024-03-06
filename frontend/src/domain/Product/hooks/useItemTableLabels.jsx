@@ -5,7 +5,7 @@ const itemLabels = {
   brand: "Brend",
   description: "Opis",
   category: "Kategorija",
-  discount_percentage: "Popust",
+  discountPercentage: "Popust",
   price: "Cena",
   rating: "Ocena",
   stock: "Komada",

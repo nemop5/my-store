@@ -25,7 +25,15 @@ async function getById(id: string): Promise<Cart> {
 }
 
 async function createNew(cart: Cart, trx: Knex.Transaction): Promise<Cart> {
-  return await cartRepository.createNew(cart, trx);
+  cart.totalProducts = cart.products.length;
+  cart.totalQuantity = cart.products.reduce((acc, product) => acc + product.quantity, 0);
+  cart.total = Math.round(cart.products.reduce((acc, product) => acc + product.price * product.quantity, 0) * 100) / 100;
+  cart.discountedTotal = Math.round(cart.products.reduce(
+    (acc, product) => acc + (product.price * (100 - product.discountPercentage) / 100) * product.quantity, 0
+  ));
+  const newCart = await cartRepository.createNew(cart, trx);
+  await addProductsToCart(newCart.id, cart.products, trx);
+  return newCart;
 };
 
 async function addProductsToCart(cartId: string, products: ProductWithQuantity[], trx: Knex.Transaction): Promise<void> {

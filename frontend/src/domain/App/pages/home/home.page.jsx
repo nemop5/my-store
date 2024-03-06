@@ -16,7 +16,7 @@ export const HomePage = () => {
   const { isOpen, onOpenHandler, onCloseHandler } = useToggler();
 
   const onCreateNewCart = useCallback(() => {
-      const products = selectedItems.map((item) => { return {id: item.original.id, quantity: item.original.quantity }});
+      const products = selectedItems.map((item) => { return {...item.original, quantity: item.original.quantity || 1 }});
       addCart(products)
         .then((data) => {
           data && navigate(`/cart-details`);
