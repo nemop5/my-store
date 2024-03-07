@@ -17,7 +17,6 @@ const defaultConfig: Knex.Config = {
     min: 0,
     max: 7, // default from docs
   },
-  //acquireConnectionTimeout: 10_000,
   migrations: {
     directory: migrationsDirectory,
     stub: `${migrationsDirectory}/../knex-migration.template.ts`,
@@ -44,7 +43,7 @@ export function getAppDatabaseConfiguration(): Knex.Config {
 export const localPostgresDefaultConfig: Knex.Config = {
   client: "pg",
   connection: {
-    host: "postgres", //TO DO: postgres when running as one docker file
+    host: "postgres",
     database: "postgres",
     user: "postgres",
     password: "postgres",

@@ -24,24 +24,7 @@ async function addCart(products) {
 }
 
 async function edit(updateItem) {
-//   const { company, category, serialNumber, id, owner, amortizationType, ...other } = updateItem;
-//   const data = {
-//     companyId: company.id.toString(),
-//     ownerId: owner.id.toString(),
-//     categoryId: category.id.toString(),
-//     serialNumber: serialNumber === null ? "" : serialNumber,
-//     id: id.toString(),
-//     amortizationTypeId: amortizationType?.id?.toString(),
-//     ...other,
-//   };
-
-//   return api
-//     .myStore({
-//       method: "put",
-//       url,
-//       data,
-//     })
-//     .then((response) => response.data);
+  //TO DO: cart edit
 }
 
 async function deleteCart(cartId) {

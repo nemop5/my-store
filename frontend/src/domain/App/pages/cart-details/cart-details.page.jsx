@@ -11,7 +11,7 @@ export const CartDetailsPage = () => {
   const { carts, deleteCart } = useCartContext();
 
   const handleEdit = (cart) => {
-    // TO DO: Handle edit logic, you can make an API call for editing cart
+    // TO DO: Handle edit logic
     setEditingCart(cart);
   };
 
@@ -24,15 +24,15 @@ export const CartDetailsPage = () => {
   }, [deleteCart]);
 
   const handleUpdateQuantity = (cart, productId, newQuantity) => {
-    // TO DO: Handle updating quantity logic, you can make an API call for updating cart
+    // TO DO: Handle updating quantity logic
   };
 
   const handleRemoveProduct = (cart, productId) => {
-    // TO DO: Handle removing product logic, you can make an API call for removing product from cart
+    // TO DO: Handle removing product logic
   };
 
   const handleSaveChanges = () => {
-    // TO DO: Handle saving changes logic, you can make an API call to update the cart
+    // TO DO: Handle saving changes logic
     console.log(`Saving changes for cart with ID ${editingCart.id}`);
     setEditingCart(null); // Reset editing state after saving changes
   };

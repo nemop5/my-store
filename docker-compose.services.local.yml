@@ -33,8 +33,6 @@ services:
       - 5000:5000 
     depends_on:
       - postgres
-    # env_file:
-    #   - ./backend/.env
 
   node_frontend:
     container_name: my_store_node_frontend

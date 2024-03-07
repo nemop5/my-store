@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./confirmation.form.scss";
-// TODO: Refactor to only contain ConfirmationForm with dynamic title
+
 export const ConfirmationForm = ({ title, onSubmit, onClose }) => {
   return (
     <form className="confirm-ownership__form">
